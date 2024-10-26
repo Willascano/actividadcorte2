@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Test</title>
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io('http://localhost:5000');
+
+            socket.on('connect', () => {
+                console.log('Connected to WebSocket');
+            });
+
+            socket.on('newItem', (item) => {
+                console.log('New item received:', item);
+            });
+
+            socket.on('disconnect', () => {
+                console.log('Disconnected from WebSocket');
+            });
+
+            document.getElementById('sendMessage').addEventListener('click', () => {
+                const message = document.getElementById('message').value;
+                socket.send(message);
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>WebSocket Test</h1>
+<input type="text" id="message" placeholder="Enter message">
+<button id="sendMessage">Send Message</button>
+</body>
+</html>
